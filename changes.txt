@@ -1,0 +1,670 @@
+-*- org -*-
+
+* 0.26 (Q4 2013) (??zamcov tomography?? OPAM packages?)
+
+** internal:
+
+*** port to 4.01 graph_code_cmt.ml
+
+* 0.25 (Q3 2013) (codemap/codegraph integration)
+
+** codemap
+
+*** highlight users and uses of the file under the cursor
+via graph_code
+
+*** highlight users and uses of the entity under the cursor
+via graph_code
+
+*** treemap focus on users and uses of the file under the cursor
+via graph_code
+
+*** bottom up and topdown layer using graph_code
+associate a depth in the use graph to each file and entities.
+
+** php
+
+*** support for namespace
+
+** ocaml
+
+*** started to play with zamcov
+refresh to 4.01, fix many bugs, cleanup makefiles, added some builtins,
+added debugging support, better error message, stack trace, etc.
+
+** internal: 
+
+*** use Travis CI for build and test regressions,
+https://travis-ci.org/facebook/pfff
+
+* 0.24 (Q2 2013) (web-codemap, web-codegraph, generalized sgrep/spatch)
+
+** web: resume work on ocsigen
+
+*** port to eliom3
+
+*** use of js_of_ocaml
+
+*** assume OPAM for web/ 
+(but not for the rest of pfff/ so people don't need OPAM to compile pfff)
+
+*** basic facebook integration in web UI, use oauth to track who is using it
+
+** codegraph
+
+*** web frontend, using ocsigen
+with rpc calls for getting cell information
+
+*** new builder for dotfiles
+
+*** new emitters to generate tags and basic prolog db
+tested for ocaml
+
+** codemap
+
+*** web frontend, using ocsigen
+
+*** macro and micro level (separetely for now)
+(fixed my long standing issue with canvas and flexible text font size)
+
+** scheck
+
+*** use graph_code as an entity finder
+
+*** ranking and filtering of errors via -filter <n> or -rank
+
+*** better process to update builtins
+
+** sgrep/spatch
+
+*** partial support for C/C++/OCaml/Js/Java/PHP via ast_fuzzy 
+
+*** better error message when try to do transformations not handled well
+(e.g. minus on a '...')
+
+** fuzzy parser for C/C++/Js/Java/OCaml/PHP
+
+** php
+
+*** many facebook extensions to the language: generics, typedefs, collections,
+implicit fields, xhp comment syntax, trailing comma, (new Foo) and id,
+trait renaming feature
+
+adapted each time:
+ - CST, AST (but not pretty print AST)
+ - visitors, dumpers, mappers
+ - tags, prolog db
+ - sgrep/spatch
+ - scheck/cmf 
+ - codegraph
+
+*** huge refactoring on the PHP grammar and AST, unified lvalue and expr,
+got from 7 s/r conflicts to 1, and can now parse more code by being
+more orthogonal.
+
+** internal
+
+*** removed cruft, old/ directories, dead subprojects
+make huge refactoring on ASTs easier
+
+* 0.23 (Q1 2013) (clang parser)
+
+** codegraph
+
+*** packing less relevant entities in a fake "..." entity
+making codegraph usable on ugly projects with hundreds of subdirectories
+
+*** deadcode/internal_module highlighting
+
+*** backward dependencies statistics and highlightings
+
+*** finer grained support for clang/C
+
+** introduce lang_clang/
+a thin wrapper around the clang/llvm ast dumps of clang-check -emit-ast.
+
+*** ast sexp parser
+
+*** patch to clang AST dumper
+
+*** unincluder/deduper
+
+*** basic compile_database.json generator from make traces
+
+** introduce lang_objc/
+basic lexer and grammar
+
+** java/bytecode: mapping bytecode to java
+Handle nested classes, generic classes, anon classes
+(understand better how things are bytecompiled, e.g. where 
+does foo$1$bar.class come from?)
+
+* -----------------------------------------------------------
+
+* 0.22 (Q4 2012) (codegraph faster/finer, .cmt/.class parsers)
+
+** codegraph for more languages, at very fine grained level
+added OCaml (.ml and .cmt), Java (.java and .class), and improved 
+PHP.
+Also improved speed a lot.
+
+** codequery for more languages
+in addition to PHP, support for java (via .class and .java files),
+OCaml (via .cmt files)
+
+** introduce lang_bytecode/ (mostly wrapper around javalib/),
+with graph_code support.
+
+** added support for .cmt files for ocaml 4.00 allowing better analysis
+of ocaml code, including pfff code
+
+** spatch: improved unparser, more flexible, easier to add heuristics
+regarding spacing issues
+
+** skip list file, more flexible, feel less overwhelmed
+can fix bugs one by one
+
+* 0.21 (Q3 2012) (codegraph, java/c parser)
+
+** introduce codegraph, a hierarchical matrix-based dependency visualizer
+with support for PHP, C, 
+
+** introduce lang_c/
+a simplified version of lang_cpp/ just focusing on C.
+Also added graph_code_c.ml.
+
+** improve lang_java/, support for generics, annotations, and other recent
+Java features.
+Also added graph_code_java.ml.
+
+** scheck
+
+*** new variable checker using ast_php_simple.ml
+far less false positives
+
+* 0.20 (Q2 2012) (luisa)
+
+** introduce graph_code.ml, another way to represent a full program
+futur backend of codegraph
+
+** sgrep:
+
+*** metavariables for XHP attributes
+
+** internals
+
+*** improve ast_php_simple.ml 
+good basis then for graph_code_php.ml, new, check_variables_php.ml, etc.
+
+* 0.19 (Q1 2012) (pfff_logger)
+
+** introduce pfff_logger (in OPA), monitoring the use of pfff tools
+(please rerun ./configure if you have compilation pbs)
+
+** introduce lang_opa
+basic support
+
+** introduce type inference for PHP (julien)
+
+** sgrep:
+
+*** case insensitive mode by default
+
+*** metavariables for XHP tags
+
+** internals
+
+*** heavily commented abstract interpreter and type inference
+
+*** refactored lang_php/analysis/
+less error messages, progress meter, split files, each PHP database
+has its own file, refactored abstract interpreter, etc.
+
+* -----------------------------------------------------------
+
+* 0.18 (Q4 2011) (codequery)
+
+** introduce codequery, an interactive Prolog-based code query engine,
+especially useful to query inheritance information.
+
+** introduce simplified AST for PHP (julien)
+
+** introduce abstract interpreter for PHP (julien)
+which leads to a more precise callgraph, type information,
+and opens the way for many more checks (including security checks
+using tainting analysis).
+
+** scheck: lots of new checks, and removed lots of false positives
+while still being reasonably fast, thanks to the use of a lazy entity finder.
+
+** spatch
+
+*** leverage pretty printer so can reindent correctly the code
+after some transformation. Thx to julien.
+spatch --pretty-printer.
+
+*** a "sed mode" so can do spatch -e 's/foo(X,Y)/foo(X)/' *.php
+
+** lang_ml, more highlight
+so can parse julien's code which heavily use modules.
+
+** lang_cpp, better parsing
+
+** internals
+
+*** removed lots of dead code now that commited to use the abstract interpreter
+(and prolog) instead of a PIL+cflow+dataflow+db+...
+
+*** refacrored lang_php/analysis, get rid of directories
+
+* 0.17 (Q3 2011) (overlay, pm_depend)
+
+** introduce notion of code overlay
+with some helper functions to check the validity of an overlay.
+Also added some support for overlay in codemap.
+
+Overlays help organize and visualize a (bad) codebase from a different point
+of view.
+
+** introduce pm_depend
+a package/module dependency visualizer exporting data for Gephi
+(only for ocaml code for now). Played with it on the code of pfff
+(in package mode) and some of its components: codemap, cpp, php, cmf
+(in module mode with and without extern mode).
+
+update: superseded by codegraph
+
+** started port of codemap to ocsigen
+can now display the treemap. Had to report many bugs to the ocsigen team
+to get this to work.
+
+** sgrep: support for regexp when matching string constants
+
+* 0.16 (Q2 2011) (c++ parser refactoring)
+
+** better C++ parser
+complete refactoring of the parser. Far less heuristics techniques.
+Closer to what was described in the CC'09 paper.
+
+* 0.15 (Q1 2011) (html/css parsers, ocsigen try)
+
+** introduce web-based source code navigator a la LXR using ocsigen
+first play with ocsigen.
+
+update: not used
+
+** introduce lang_html/ with clean ast_html.ml type
+(also using code from a stripped down version of ocamlnet)
+
+** introduce lang_css/
+(using code from ccss by dario teixeira)
+
+** introduce lang_web/ with combined html+js+css parser
+
+* -----------------------------------------------------------
+
+* 0.14 (Q4 2010) (layers, spatch php, more language highlighters)
+
+** codemap
+
+*** layer type, so can save results of global analysis and process them
+later in codemap or pfff_statistics
+
+*** layers! like in google earth
+
+- architecture/aspect layer (default one)
+- static dead code layer
+- dead: dynamic live code layer (using xhprof data)
+- test coverage layer (using phpunit and xdebug data)
+- 
+- bugs layer
+- security layer
+- cyclomatic complexity, 
+- age (and activity) layer
+- number of authors layer
+
+*** more semantic visual feedback
+can see arguments passed by refs visually (TakeArgNByRef)
+as well as functions containing dynamic calls (ContainDynamicCall)
+
+*** visual grep
+can now visualize the result of a git grep on a project
+
+*** better visualization of directories
+use different color for dirs and files labels, and highlight first
+letter of label at depth = 1
+
+
+** introduce spatch, a syntactical patch
+a DSL to express easily refactoring on PHP.
+
+** sgrep/spatch
+
+*** better support for XHP patterns with flexible matching
+on attributes
+
+*** experimental support for statement patterns
+   can now express patterns like:
+    sgrep -e 'foreach($A as $V) { if (strpos($T, $V) !== false) { return Z; }}'
+
+** introducing lang_nw/
+so can visualize also Tex/Latex/Noweb source (which includes
+the documentation of pfff!)
+
+** introducing lang_lisp/
+
+** introducing lang_haskell/
+
+** introducing lang_python/
+
+** introducing lang_csharp/
+
+** introducing lang_erlang/
+
+** introducing lang_java/
+
+** lang_ml
+more highlight
+
+** php analysis
+
+*** finalized the PIL
+update: superseded by ast_php_simple.ml
+
+*** dead? dataflow analysis using PIL (thanks to iproctor)
+update: supersed by abstract interpreter
+
+** global analysis
+
+*** store additional attributes/properties per entities in the light code db
+- does it take argument by refs. 
+- does it contain dynamic calls ($fn(...))
+
+This can help the visualizer to give more semantic visual feedback.
+
+** documentation
+wrote wiki pages (intro, sgrep, spatch, features, vision, roadmap, etc)
+
+applied codemap on many open source project and generated screenshots.
+
+** internals
+
+*** refactored the code in visual/ to have smaller and cleaner files 
+thanks to literate programming and codemap itself to show the problem
+and assist in the refactoring
+
+*** refactored code about defs/uses in defs_uses_php.ml
+and put more generic stuff in h_program-lang/
+
+*** renamed pfff_visual in codemap
+
+** commons/graph.ml
+a polymorphic wrapper around ocamlgraph
+
+(to compute strongly connected components of php callgraph, in prevision
+of a bottom up analysis of php)
+
+update: also useful for codegraph backend.
+
+* 0.13
+
+first public release!
+https://github.com/facebook/pfff
+
+* 0.12 (Q3 2010) (codemap, light db, tags php, scheck php, ocaml/js parsers)
+
+Real start of multi-language support.
+
+** introduce source code  navigator/searcher/visualizer using cairo
+
+Show treemap and thumbnails of file content!
+Have also minimap, zoom, labels, alpha for overlapping labels,
+labels in diagonal, anamorphic content showing in bigger fonts
+the important stuff, magnifying glass, clickable content 
+where a click opens the file in your editor at the right place, etc. 
+=> A kind of google maps but on code :)
+
+Support for PHP, Javascript, ML, C++, C, thrift.
+
+For PHP do also URL highlighting which helps understand the control flow
+in webapps. 
+Also highlight local/globals/parameters variables differently.
+Also highlight bad smells (especially security related bad smells)
+
+Integrate other PL artifacts: 
+ - The builtins API reference
+ - PLEAC cookbooks
+=> a single place to query information about the code
+(no need to first grep the code, then google for the function
+ because it turns out to be a builtin).
+
+Can easily go the definition of a function (whether it's a builtin or not,
+thanks to the parsable PHP manual and HPHP idl files).
+
+Can easily go to the example of use of a function (whether it's a builtin
+or not, thanks to PLEAC for the builtin functions).
+
+Far more flexible and powerful than the previous treemap visualizer
+which was using Graphics. Now also render file content!
+
+** new tool, stags, a TAG generator using ASTs not fragle regexp
+support for PHP ocaml
+
+** introduce parsing_ml/
+Allow to use and experiment the treemap code visualizer on the pfff
+source itself; to see if such features are useful.
+
+** introduce parsing_cpp/
+
+** introduce analyze_js/, analyze_cpp/, analyze_ml/ 
+very basic support. Just highlighting
+
+** introduce database_code.ml, a generic code-information database
+using JSON as support. Will help make pfff less php-specific.
+
+** sgrep
+support linear patterns (e.g. sgrep -e 'X & X')
+and a -pvar option to print matched metavarables instead of matched code
+
+** internals
+reorganized the treemap and h_program-lang/ to be less
+facebook and pfff specific. Have a commons/file_type.ml for instance.
+
+
+* 0.11
+
+** introduce checker, scheck
+warn about "unused variable" and "use of undefined variable".
+
+use fast global analysis (bonus: it's flib-aware and desugar
+the require_module_xxx and other flib conventions).
+
+** introduce php_etags
+a more precise TAGS file generator (bonus: it's xhp-aware).
+
+** introduce javascript support, parsing_js/
+parsing/unparsing/dumping.
+preliminary refactoring support.
+
+** introduce builtin XHP support
+
+** analysis
+
+*** dead? introduce PIL, PHP Intermediate Language
+a more conveninent AST to work on
+for doing complex analysis such as dataflow, type-inference, tainted
+analysis, etc.
+
+*** include/require analysis as well as flib-unsugaring. Make it possible
+to grab all the files needed to check one file, in a way similar
+to what gcc does with cpp. Provide a DFS and BFS algo.
+
+* 0.10 (Q2 2010) (test coverage php)
+
+** finish test coverage analysis using xdebug.ml and phpunit.ml
+rank, filter, parallelize (using MPI), cronize.
+
+** helpers to write some PHP refactorings
+fix parsing (lexer) and unparsing bugs
+
+introduce the transfo field, mimicing part of coccinelle.
+
+improve support for XHP and refactoring, merging tokens heuristic.
+
+** analysis
+static method calls analysis (with self/parent special cases handling)
+
+users_of_class, users_of_define, extenders/implementers of class
+
+** parser
+fix bugs in lexer, now can parse <?=  code
+
+** internal
+
+*** split analyze_php/ in multiple dirs
+and moved code from facebook/ to analyze_php/
+
+*** started to use OUnit.ml !
+unit tests for parsing, analysis, deadcode, callgraph, xdebug
+
+** first work on web gui
+extract and modularize php highlighting logic from gtk gui.
+
+started integrate treemap and web gui.
+
+** first work on thrift interface to pfff services
+used by web ui of acrichton
+
+** misc
+static arrays lint checks
+
+dead? proto of undeterministic PHP bugs finder using diff and xdebug
+
+* 0.9
+
+** phpunit result analysis and parsing
+
+** analysis
+control flow graph analysis:
+ useful for cyclomatic complexity, and potentially useful or far more
+ things (sgrep, dataflow, etc)
+
+dead? start of dataflow analysis
+
+start of coverage analysis (static and dynamic)
+
+start of include_require static analysis (and flib file dependencies too)
+
+dead? start of type unioning
+
+** dead? introduce compile_php/
+but for now very rudimentary
+update: not used for now
+
+** internals
+reorganized json/sexp output, factorize code and use more ocaml.ml
+
+* 0.8 (Q1 2010) (sgrep php, treemap, xdebug dynamic analysis)
+
+** xdebug trace parsing, can now do dynamic analysis! 
+Done for type "inference/extraction" at the beginnning and useful
+for coverage too!
+
+** dead: GUI, trivial type inference feedback based on xdebug info
+update: not really used for now, superseded by julien static type inference
+
+** sgrep: introducing $V special metavar 
+
+** dead? introducing parsing_sql/
+could be useful at some point for better type checking or type inference
+update: not used for now
+
+* 0.7
+
+** dead: introducing ppp, php pre processor, and implement closure
+by source-to-source transformation.
+
+now I can code in PHP :)
+
+** improved pretty printer, and helpers for AST transformation
+with map_php.ml. Used by ppp and closure implemetation. 
+
+** sgrep: 
+- a -emacs flag
+- improved -xhp and made it the default operating mode
+
+** deadcode:
+- do fixpoint analysis per file
+
+* 0.6 
+
+** introducing sgrep_php
+a code matcher working at the AST level
+
+** introducing treemap viewer using Graphics.mli
+update: superseded by cairo-based viewer (but reused most of the algorithms)
+
+** treemap algorithms library and basic literate programming manual
+
+** dead? introducing code_rank
+ref from sebastien bergmann
+
+* 0.5
+
+** dead: XHP poor's man support. 
+Just have A new -pp option to give opportunity to call
+a preprocessor (eg 'xhpize -d').
+
+** ffi/meta
+a new -json option and json support
+
+also supported in sgrep.
+
+* 0.4
+
+** doc
+programmer manual for parsing_php/
+internals manual for parsing_php/
+
+!!use literate programming method (via noweb/syncweb)!!
+(hence the special marks in the source)
+
+** analysis
+callgraph for methods (using weak heuristic), with optimisations
+to scale (partially because use weak heuristic)
+
+* -----------------------------------------------------------
+
+* 0.3 (Q4 2009) (php parser, berkeley db, deadcode)
+
+** analysis
+deadcode analysis v2, v3, v4
+
+** infrastructure
+IRC support (adapting ocamlirc/)
+update: not used anymore
+
+complement git.ml
+
+* 0.2 
+
+** analysis
+deadcode analysis v1
+
+* 0.1
+
+** dead: introducing PHP gui (with ocamlgtk/)
+update: superseded by codemap, a fancy gui using cairo and gtk
+
+* beta
+
+** global analysis first draft, PHP database (with ocamlbdb/)
+
+* alpha (Nov 2009)
+
+** PHP parser first draft!
+reused Zend flex/bison code.
+
+** visitor (using ocamltarzan)
+
+** AST dumper (also using ocamltarzan and lib-sexp)

@@ -1,0 +1,8 @@
+clang: warning: argument unused during compilation: '-fno-defer-pop'
+posix_fadvise.c:19:9: warning: implicit declaration of function 'posix_fadvise' is invalid in C99 [-Wimplicit-function-declaration]
+    k = posix_fadvise(j, 0, 0, POSIX_FADV_NORMAL);
+        ^
+posix_fadvise.c:19:32: error: use of undeclared identifier 'POSIX_FADV_NORMAL'
+    k = posix_fadvise(j, 0, 0, POSIX_FADV_NORMAL);
+                               ^
+1 warning and 1 error generated.

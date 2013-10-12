@@ -1,0 +1,21 @@
+-*- org -*-
+
+* When add generics
+
+We can have expressions like:
+ i<b;
+and type declarations like
+ i<b> x;
+
+hence an ambiguity which requires some lookahead or semantic information
+to know what is 'i' (is it a type name?).
+
+solutions?
+ - (1) use a GLR parser
+ - (2) c/c++ parser trick to tag differently <
+ - (3) parser trick to tag differently typedef and idents
+
+I currently use #3.
+
+* when add generic methods
+

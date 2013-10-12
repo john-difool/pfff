@@ -1,0 +1,12 @@
+clang: warning: argument unused during compilation: '-fno-defer-pop'
+posix_fallocate.c:23:9: warning: implicit declaration of function 'posix_fallocate' is invalid in C99 [-Wimplicit-function-declaration]
+    k = posix_fallocate(j, offset, len);
+        ^
+1 warning generated.
+Undefined symbols for architecture x86_64:
+  "_posix_fallocate", referenced from:
+      _check in posix_fallocate.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+File "main.ml", line 1:
+Error: Error while building custom runtime system

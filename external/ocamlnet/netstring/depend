@@ -1,0 +1,100 @@
+mimestring.cmo : netstring_pcre.cmi netstream.cmi netencoding.cmi \
+    netconversion.cmi netchannels.cmi netbuffer.cmi mimestring.cmi
+mimestring.cmx : netstring_pcre.cmx netstream.cmx netencoding.cmx \
+    netconversion.cmx netchannels.cmx netbuffer.cmx mimestring.cmi
+netaccel.cmo : netconversion.cmi netaux.cmi netaccel.cmi
+netaccel.cmx : netconversion.cmx netaux.cmx netaccel.cmi
+netaccel_link.cmo : netaccel.cmi netaccel_link.cmi
+netaccel_link.cmx : netaccel.cmx netaccel_link.cmi
+netaddress.cmo : mimestring.cmi netaddress.cmi
+netaddress.cmx : mimestring.cmx netaddress.cmi
+netaux.cmo : netaux.cmi
+netaux.cmx : netaux.cmi
+netbuffer.cmo : netbuffer.cmi
+netbuffer.cmx : netbuffer.cmi
+netchannels.cmo : netbuffer.cmi netchannels.cmi
+netchannels.cmx : netbuffer.cmx netchannels.cmi
+netconst.cmo : netconst.cmi
+netconst.cmx : netconst.cmi
+netconversion.cmo : netstring_pcre.cmi netmappings.cmi netdb.cmi \
+    netchannels.cmi netbuffer.cmi netaux.cmi netconversion.cmi
+netconversion.cmx : netstring_pcre.cmx netmappings.cmx netdb.cmx \
+    netchannels.cmx netbuffer.cmx netaux.cmx netconversion.cmi
+netdate.cmo : netchannels.cmi netdate.cmi
+netdate.cmx : netchannels.cmx netdate.cmi
+netdb.cmo : netdb.cmi
+netdb.cmx : netdb.cmi
+netencoding.cmo : netstring_pcre.cmi netconversion.cmi netchannels.cmi \
+    netbuffer.cmi netencoding.cmi
+netencoding.cmx : netstring_pcre.cmx netconversion.cmx netchannels.cmx \
+    netbuffer.cmx netencoding.cmi
+netfs.cmo : netstring_pcre.cmi netconversion.cmi netchannels.cmi netfs.cmi
+netfs.cmx : netstring_pcre.cmx netconversion.cmx netchannels.cmx netfs.cmi
+netglob.cmo : netstring_pcre.cmi netglob_lex.cmo netfs.cmi netconversion.cmi \
+    netglob.cmi
+netglob.cmx : netstring_pcre.cmx netglob_lex.cmx netfs.cmx netconversion.cmx \
+    netglob.cmi
+netglob_lex.cmo :
+netglob_lex.cmx :
+nethtml.cmo : netstring_str.cmi netencoding.cmi netchannels.cmi nethtml.cmi
+nethtml.cmx : netstring_str.cmx netencoding.cmx netchannels.cmx nethtml.cmi
+nethttp.cmo : neturl.cmi netstring_pcre.cmi netmime.cmi netencoding.cmi \
+    netdate.cmi mimestring.cmi nethttp.cmi
+nethttp.cmx : neturl.cmx netstring_pcre.cmx netmime.cmx netencoding.cmx \
+    netdate.cmx mimestring.cmx nethttp.cmi
+netmappings.cmo : netdb.cmi netmappings.cmi
+netmappings.cmx : netdb.cmx netmappings.cmi
+netmappings_iso.cmo : netdb.cmi
+netmappings_iso.cmx : netdb.cmx
+netmappings_min.cmo : netdb.cmi
+netmappings_min.cmx : netdb.cmx
+netmappings_other.cmo : netdb.cmi
+netmappings_other.cmx : netdb.cmx
+netmime.cmo : netstring_pcre.cmi netencoding.cmi netchannels.cmi \
+    netbuffer.cmi mimestring.cmi netmime.cmi
+netmime.cmx : netstring_pcre.cmx netencoding.cmx netchannels.cmx \
+    netbuffer.cmx mimestring.cmx netmime.cmi
+netpagebuffer.cmo : netpagebuffer.cmi
+netpagebuffer.cmx : netpagebuffer.cmi
+netsendmail.cmo : netmime.cmi netdate.cmi netconversion.cmi netchannels.cmi \
+    mimestring.cmi netsendmail.cmi
+netsendmail.cmx : netmime.cmx netdate.cmx netconversion.cmx netchannels.cmx \
+    mimestring.cmx netsendmail.cmi
+netstream.cmo : netchannels.cmi netbuffer.cmi netaux.cmi netstream.cmi
+netstream.cmx : netchannels.cmx netbuffer.cmx netaux.cmx netstream.cmi
+netstring_pcre.cmo : netstring_pcre.cmi
+netstring_pcre.cmx : netstring_pcre.cmi
+netstring_str.cmo : netstring_pcre.cmi netstring_str.cmi
+netstring_str.cmx : netstring_pcre.cmx netstring_str.cmi
+netstring_top.cmo : netstring_top.cmi
+netstring_top.cmx : netstring_top.cmi
+netulex.cmo : netconversion.cmi netaux.cmi netulex.cmi
+netulex.cmx : netconversion.cmx netaux.cmx netulex.cmi
+neturl.cmo : netstring_str.cmi netstring_pcre.cmi netencoding.cmi neturl.cmi
+neturl.cmx : netstring_str.cmx netstring_pcre.cmx netencoding.cmx neturl.cmi
+mimestring.cmi : netstream.cmi netchannels.cmi
+netaccel.cmi :
+netaccel_link.cmi :
+netaddress.cmi :
+netaux.cmi :
+netbuffer.cmi :
+netchannels.cmi : netbuffer.cmi
+netconst.cmi :
+netconversion.cmi : netchannels.cmi
+netdate.cmi : netchannels.cmi
+netdb.cmi :
+netencoding.cmi : netconversion.cmi netchannels.cmi
+netfs.cmi : netconversion.cmi netchannels.cmi
+netglob.cmi : netfs.cmi netconversion.cmi
+nethtml.cmi : netconversion.cmi netchannels.cmi
+nethttp.cmi : netmime.cmi
+netmappings.cmi :
+netmime.cmi : netstream.cmi netchannels.cmi mimestring.cmi
+netpagebuffer.cmi :
+netsendmail.cmi : netmime.cmi netconversion.cmi mimestring.cmi
+netstream.cmi : netchannels.cmi netbuffer.cmi
+netstring_pcre.cmi :
+netstring_str.cmi :
+netstring_top.cmi :
+netulex.cmi : netconversion.cmi netchannels.cmi
+neturl.cmi :

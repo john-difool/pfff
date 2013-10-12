@@ -1,0 +1,75 @@
+netexn.cmo : netsys_conf.cmo netexn.cmi
+netexn.cmx : netsys_conf.cmx netexn.cmi
+netlog.cmo : netsys_oothr.cmi netlog.cmi
+netlog.cmx : netsys_oothr.cmx netlog.cmi
+netsys.cmo : netsys_win32.cmi netsys_posix.cmi netsys_impl_util.cmo \
+    netlog.cmi netexn.cmi netsys.cmi
+netsys.cmx : netsys_win32.cmx netsys_posix.cmx netsys_impl_util.cmx \
+    netlog.cmx netexn.cmx netsys.cmi
+netsys_conf.cmo :
+netsys_conf.cmx :
+netsys_gprof_init.cmo : netsys.cmi netsys_gprof_init.cmi
+netsys_gprof_init.cmx : netsys.cmx netsys_gprof_init.cmi
+netsys_impl_util.cmo :
+netsys_impl_util.cmx :
+netsys_mem.cmo : netsys_oothr.cmi netsys_mem.cmi
+netsys_mem.cmx : netsys_oothr.cmx netsys_mem.cmi
+netsys_oothr.cmo : netsys_oothr.cmi
+netsys_oothr.cmx : netsys_oothr.cmi
+netsys_oothr_mt.cmo : netsys_oothr.cmi netsys_oothr_mt.cmi
+netsys_oothr_mt.cmx : netsys_oothr.cmx netsys_oothr_mt.cmi
+netsys_oothr_mt_init.cmo : netsys_oothr_mt.cmi netsys_oothr_mt_init.cmi
+netsys_oothr_mt_init.cmx : netsys_oothr_mt.cmx netsys_oothr_mt_init.cmi
+netsys_pollset.cmo : netsys_posix.cmi netsys_pollset.cmi
+netsys_pollset.cmx : netsys_posix.cmx netsys_pollset.cmi
+netsys_pollset_generic.cmo : netsys_posix.cmi netsys_pollset_win32.cmi \
+    netsys_pollset_posix.cmi netsys_pollset.cmi netsys_oothr.cmi \
+    netsys_pollset_generic.cmi
+netsys_pollset_generic.cmx : netsys_posix.cmx netsys_pollset_win32.cmx \
+    netsys_pollset_posix.cmx netsys_pollset.cmx netsys_oothr.cmx \
+    netsys_pollset_generic.cmi
+netsys_pollset_posix.cmo : netsys_posix.cmi netsys_pollset.cmi \
+    netsys_oothr.cmi netsys.cmi netlog.cmi netsys_pollset_posix.cmi
+netsys_pollset_posix.cmx : netsys_posix.cmx netsys_pollset.cmx \
+    netsys_oothr.cmx netsys.cmx netlog.cmx netsys_pollset_posix.cmi
+netsys_pollset_win32.cmo : netsys_win32.cmi netsys_posix.cmi \
+    netsys_pollset.cmi netsys_oothr.cmi netsys_impl_util.cmo netsys.cmi \
+    netlog.cmi netexn.cmi netsys_pollset_win32.cmi
+netsys_pollset_win32.cmx : netsys_win32.cmx netsys_posix.cmx \
+    netsys_pollset.cmx netsys_oothr.cmx netsys_impl_util.cmx netsys.cmx \
+    netlog.cmx netexn.cmx netsys_pollset_win32.cmi
+netsys_posix.cmo : netsys_types.cmi netsys_signal.cmi netsys_oothr.cmi \
+    netsys_impl_util.cmo netlog.cmi netexn.cmi netsys_posix.cmi
+netsys_posix.cmx : netsys_types.cmx netsys_signal.cmx netsys_oothr.cmx \
+    netsys_impl_util.cmx netlog.cmx netexn.cmx netsys_posix.cmi
+netsys_signal.cmo : netsys_oothr.cmi netlog.cmi netsys_signal.cmi
+netsys_signal.cmx : netsys_oothr.cmx netlog.cmx netsys_signal.cmi
+netsys_tmp.cmo : netsys_oothr.cmi netsys_tmp.cmi
+netsys_tmp.cmx : netsys_oothr.cmx netsys_tmp.cmi
+netsys_types.cmo : netsys_types.cmi
+netsys_types.cmx : netsys_types.cmi
+netsys_win32.cmo : netsys_posix.cmi netsys_oothr.cmi netsys_impl_util.cmo \
+    netlog.cmi netexn.cmi netsys_win32.cmi
+netsys_win32.cmx : netsys_posix.cmx netsys_oothr.cmx netsys_impl_util.cmx \
+    netlog.cmx netexn.cmx netsys_win32.cmi
+netsys_xdr.cmo : netsys_xdr.cmi
+netsys_xdr.cmx : netsys_xdr.cmi
+netexn.cmi :
+netlog.cmi :
+netsys.cmi : netsys_posix.cmi
+netsys_gprof_init.cmi :
+netsys_mem.cmi : netsys_types.cmi
+netsys_oothr.cmi :
+netsys_oothr_mt.cmi : netsys_oothr.cmi
+netsys_oothr_mt_init.cmi :
+netsys_pollset.cmi : netsys_posix.cmi
+netsys_pollset_generic.cmi : netsys_pollset.cmi
+netsys_pollset_posix.cmi : netsys_pollset.cmi
+netsys_pollset_win32.cmi : netsys_pollset.cmi
+netsys_posix.cmi : netsys_types.cmi netlog.cmi
+netsys_signal.cmi :
+netsys_signalling.cmi :
+netsys_tmp.cmi :
+netsys_types.cmi :
+netsys_win32.cmi : netsys_posix.cmi
+netsys_xdr.cmi :

@@ -1,0 +1,11 @@
+clang: warning: argument unused during compilation: '-fno-defer-pop'
+fchdir.c:18:27: warning: expression result unused [-Wunused-value]
+    if (fchdir(fd) == -1) Val_int(1);
+                          ^~~~~~~~~~
+/usr/local/lib/ocaml/caml/mlvalues.h:77:20: note: expanded from macro 'Val_int'
+#define Val_int(x) Val_long(x)
+                   ^~~~~~~~~~~
+/usr/local/lib/ocaml/caml/mlvalues.h:73:45: note: expanded from macro 'Val_long'
+#define Val_long(x)     (((intnat)(x) << 1) + 1)
+                         ~~~~~~~~~~~~~~~~~~ ^ ~
+1 warning generated.

@@ -1,0 +1,15 @@
+clang: warning: argument unused during compilation: '-fno-defer-pop'
+fdopendir.c:20:11: warning: implicit declaration of function 'fdopendir' is invalid in C99 [-Wimplicit-function-declaration]
+    dir = fdopendir(fd);
+          ^
+fdopendir.c:20:9: warning: incompatible integer to pointer conversion assigning to 'DIR *' from 'int' [-Wint-conversion]
+    dir = fdopendir(fd);
+        ^ ~~~~~~~~~~~~~
+2 warnings generated.
+Undefined symbols for architecture x86_64:
+  "_fdopendir", referenced from:
+      _check in fdopendir.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+File "main.ml", line 1:
+Error: Error while building custom runtime system

@@ -1,0 +1,135 @@
+# -*- makefile -*-
+
+##############################################################################
+# Prelude 
+##############################################################################
+
+# This file assumes the "includer" will have set a few variables and then do a
+# include Makefile.common. Here are those variables:
+#  - SRC
+#  - INCLUDEDIRS
+
+# For literate programming, also assumes a few variables:
+#  - SRCNW
+#  - TEXMAIN
+#  - TEX
+
+##############################################################################
+# Generic variables
+##############################################################################
+
+INCLUDES?=$(INCLUDEDIRS:%=-I %) $(SYSINCLUDES)
+
+OBJS?=    $(SRC:.ml=.cmo)
+OPTOBJS?= $(SRC:.ml=.cmx)
+
+
+##############################################################################
+# Generic ocaml variables
+##############################################################################
+
+#dont use -custom, it makes the bytecode unportable.
+
+#-w +9 is for better warning on records, needs ocaml 3.12
+OCAMLCFLAGS?=-g -dtypes $(OCAMLCFLAGS_EXTRA) -thread -w +9 -w -21 -warn-error +a
+
+# This flag is also used in subdirectories so don't change its name here.
+OPTFLAGS?=-thread -g
+
+OCAMLC=ocamlc$(OPTBIN) $(OCAMLCFLAGS)  $(INCLUDES)
+OCAMLOPT=ocamlopt$(OPTBIN) $(OPTFLAGS) $(INCLUDES)
+OCAMLLEX=ocamllex #-ml # -ml for debugging lexer, but slightly slower
+OCAMLYACC=ocamlyacc -v
+OCAMLDEP=ocamldep $(PP) $(INCLUDES)
+OCAMLMKTOP=ocamlmktop -g -custom $(INCLUDES) -thread
+
+# can also be set via 'make static'
+STATIC= #-ccopt -static
+
+# can also be unset via 'make purebytecode'
+BYTECODE_STATIC=-custom
+
+##############################################################################
+# Top rules
+##############################################################################
+all::
+
+##############################################################################
+# Generic Literate programming variables
+##############################################################################
+
+SYNCFLAGS=-md5sum_in_auxfile -less_marks
+
+SYNCWEB=~/github/syncweb/syncweb $(SYNCFLAGS)
+NOWEB=~/github/syncweb/scripts/noweblatex
+OCAMLDOC=ocamldoc $(INCLUDES)
+
+PDFLATEX=pdflatex --shell-escape 
+
+lpclean::
+	rm -f *.aux *.toc *.log *.brf *.out
+
+##############################################################################
+# Developer rules
+##############################################################################
+
+#old: otags -no-mli-tags -r  .  but does not work very well
+# better to use my own tagger :)
+otags:
+	echo "you should use pfff_tags"
+
+ovisual:
+	echo "you should use pfff_visual"
+
+distclean::
+	rm -f TAGS
+
+DOTCOLORS=green,darkgoldenrod2,cyan,red,magenta,yellow,burlywood1,aquamarine,purple,lightpink,salmon,mediumturquoise,black,slategray3
+
+dot:
+	$(OCAMLDOC) -I +threads $(SRC) -dot -dot-reduce \
+	   -dot-colors $(DOTCOLORS)
+	dot -Tps ocamldoc.out > dot.ps
+	mv dot.ps Fig_graph_ml.ps
+	ps2pdf Fig_graph_ml.ps
+	rm -f Fig_graph_ml.ps
+
+doti:
+	$(OCAMLDOC) -I +threads $(SRC:.ml=.mli) -dot
+	dot -Tps ocamldoc.out > dot.ps
+	mv dot.ps Fig_graph_mli.ps
+	ps2pdf Fig_graph_mli.ps
+	rm -f Fig_graph_mli.ps
+
+##############################################################################
+# Generic ocaml rules
+##############################################################################
+
+.SUFFIXES: .ml .mli .cmo .cmi .cmx .cmt
+
+.ml.cmo:
+	$(OCAMLC)  -c $<
+.mli.cmi:
+	$(OCAMLC)  -c $<
+.ml.cmx:
+	$(OCAMLOPT)  -c $<
+
+.ml.mldepend: 
+	$(OCAMLC) -i $<
+
+clean::
+	rm -f *.cm[ioxa] *.cmt* *.o *.a *.cmxa *.annot
+	rm -f *~ .*~ *.exe gmon.out #*#
+
+clean::
+	rm -f *.aux *.toc *.log *.brf *.out
+
+distclean::
+	rm -f .depend
+
+beforedepend::
+
+depend:: beforedepend
+	$(OCAMLDEP) *.mli *.ml > .depend
+
+-include .depend

@@ -1,0 +1,8 @@
+%.cmo : %.ml
+	$(OCAMLC) -c $(OCAMLCFLAGS_EXTRA) $(INCFLAGS) $<
+%.cmx : %.ml
+	$(OCAMLOPT) -c $(INCFLAGS) $<
+%.cmi : %.mli
+	$(OCAMLC) $(INCFLAGS) $<
+%.o : %.c
+	$(OCAMLC) -ccopt "$(CPPFLAGS)" $<
